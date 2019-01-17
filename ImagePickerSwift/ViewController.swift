@@ -8,8 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    @IBOutlet weak var imgv: UIImageView!
+    
+    let pickr=UIImagePickerController();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +24,21 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func btn_click(_ sender: Any) {
+        
+        pickr.sourceType=UIImagePickerControllerSourceType.photoLibrary;
+        pickr.delegate=self;
+        
+        self.present(pickr, animated: true, completion: nil);
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        imgv.image=info[UIImagePickerControllerOriginalImage] as! UIImage?;
+        imgv.contentMode = .scaleAspectFit;
+        
+        self.dismiss(animated: true, completion: nil);
+    }
 
 }
 
